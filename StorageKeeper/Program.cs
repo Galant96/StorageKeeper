@@ -1,4 +1,6 @@
-﻿using System;
+﻿using StorageKeeper.App.Concrete;
+using StorageKeeper.Domain.Entities;
+using System;
 
 namespace StorageKeeper
 {
@@ -22,7 +24,21 @@ namespace StorageKeeper
                             // Remove
                 // 2.5 Exit App
 
-            Console.WriteLine("Hello, World!");
+            Console.WriteLine("Welcome to Storage Keeper!");
+            MenuActionService menuActionService = new MenuActionService();
+
+            while (true)
+            {
+                Console.WriteLine("Please chose an option:");
+                List<MenuAction> menuActions = menuActionService.GetMenuActionsByName("MainMenu");
+
+                for (int i = 0; i < menuActions.Count; i++)
+                {
+                    Console.WriteLine($"{menuActions[i].Id}. {menuActions[i].OptionName}");
+                }
+
+                var option = Console.ReadLine();
+            }
         }
     }
 }
