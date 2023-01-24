@@ -10,14 +10,14 @@ namespace StorageKeeper.Domain.Entities
     public class MenuAction : BaseEntity
     {
         public string OptionName { get; set; }
-        public string MenuName { get; set; }
+        public string MenuId { get; set; }
 
         #region Constructors
-        public MenuAction(int id, string name, string menuName)
+        public MenuAction(int id, string name, string menuId)
         {
             Id = id;
             OptionName = name;
-            MenuName = menuName;
+            MenuId = menuId;
         }
         #endregion
 

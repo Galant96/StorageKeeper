@@ -10,6 +10,7 @@ namespace StorageKeeper.App.Concrete
 {
     public class MenuActionService : BaseService<MenuAction>
     {
+
         #region Constructors
         public MenuActionService()
         {
@@ -20,13 +21,13 @@ namespace StorageKeeper.App.Concrete
 
         #region Methods
 
-        public List<MenuAction> GetMenuActionsByName(string menuName)
+        public List<MenuAction> GetMenuActionsByName(string menuId)
         {
             List<MenuAction> menuActions = new List<MenuAction>();
 
             foreach(MenuAction menuAction in Items)
             {
-               if(menuAction.MenuName == menuName)
+               if(menuAction.MenuId == menuId)
                 {
                     menuActions.Add(menuAction);
                 }
@@ -50,7 +51,7 @@ namespace StorageKeeper.App.Concrete
             AddItem(new MenuAction(4, "Save catalogue", "CreateCatalogueMenu"));
             AddItem(new MenuAction(5, "Back to Main Menu", "CreateCatalogueMenu"));
 
-            // Manage catalogue menu
+            // Show/Manage catalogue menu
             AddItem(new MenuAction(1, "Chose catalogue", "ShowCatalogueMenu"));
             AddItem(new MenuAction(2, "Back to Main Menu", "ShowCatalogueMenu"));
 
@@ -62,10 +63,33 @@ namespace StorageKeeper.App.Concrete
             // Find item menu
             AddItem(new MenuAction(1, "Find item by id", "FindItemMenu"));
             AddItem(new MenuAction(2, "Find item by name", "FindItemMenu"));
+            AddItem(new MenuAction(3, "Go back", "FindItemMenu"));
 
             // Remove item menu
             AddItem(new MenuAction(1, "Remove item by id", "RemoveItemMenu"));
             AddItem(new MenuAction(2, "Remove item by name", "RemoveItemMenu"));
+            AddItem(new MenuAction(3, "Go back", "RemoveItemMenu"));
+
+        }
+
+        public void DisplayMenuActions(string menuName)
+        {
+            Console.WriteLine();
+            List<MenuAction> menuActions = GetMenuActionsByName(menuName);
+            for (int i = 0; i < menuActions.Count; i++)
+            {
+                Console.WriteLine($"{menuActions[i].Id}. {menuActions[i].OptionName}");
+            }
+        }
+
+        public void DisplayMenuActions(List<MenuAction> menuActions)
+        {
+            Console.WriteLine();
+
+            for (int i = 0; i < menuActions.Count; i++)
+            {
+                Console.WriteLine($"{menuActions[i].Id}. {menuActions[i].OptionName}");
+            }
 
         }
         #endregion
