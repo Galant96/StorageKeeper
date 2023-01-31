@@ -17,6 +17,8 @@ namespace StorageKeeper.Domain.Interfaces
 
         T GetItemById(int id);
 
+        T GetItemByName(string name);
+
         void AddItem(T item);
 
         int UpdateItem(T item);

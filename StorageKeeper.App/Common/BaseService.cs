@@ -39,6 +39,15 @@ namespace StorageKeeper.App.Common
         {
             // Returns the first element of a sequence, or a specified default value if the sequence contains no elements.
             var entity = Items.FirstOrDefault(entityX => entityX.Id == id);
+          
+            return entity;
+        }
+
+        public T GetItemByName(string name)
+        {
+            // Returns the first element of a sequence, or a specified default value if the sequence contains no elements.
+            var entity = Items.FirstOrDefault(entityX => entityX.Name == name);
+
             return entity;
         }
 

@@ -39,32 +39,35 @@ namespace StorageKeeper.App.Concrete
         private void Initialize()
         {
             // Main Menu
-            AddItem(new MenuAction(1, "Create a storage catalogue", "MainMenu"));
+            AddItem(new MenuAction(1, "Create storage catalogue", "MainMenu"));
             AddItem(new MenuAction(2, "Show catalogue", "MainMenu"));
-            AddItem(new MenuAction(3, "Find item", "MainMenu"));
+            AddItem(new MenuAction(3, "Manage items", "MainMenu"));
             AddItem(new MenuAction(4, "Exit", "MainMenu"));
 
             // Create a storage catalogue menu
-            AddItem(new MenuAction(1, "Provide catalogue name", "CreateCatalogueMenu"));
-            AddItem(new MenuAction(2, "Add item", "CreateCatalogueMenu"));
-            AddItem(new MenuAction(3, "Remove item", "CreateCatalogueMenu"));
-            AddItem(new MenuAction(4, "Save catalogue", "CreateCatalogueMenu"));
-            AddItem(new MenuAction(5, "Back to Main Menu", "CreateCatalogueMenu"));
-
-            // Show/Manage catalogue menu
-            AddItem(new MenuAction(1, "Chose catalogue", "ShowCatalogueMenu"));
-            AddItem(new MenuAction(2, "Back to Main Menu", "ShowCatalogueMenu"));
+            AddItem(new MenuAction(1, "Add catalogue", "CatalogueMenu"));
+            AddItem(new MenuAction(2, "Display catalogue", "CatalogueMenu"));
+            AddItem(new MenuAction(3, "Remove catalogue", "CatalogueMenu"));
+            AddItem(new MenuAction(4, "Back to Main Menu", "CatalogueMenu"));
 
             // Manage items menu
             AddItem(new MenuAction(1, "Add item", "ManageItemMenu"));
-            AddItem(new MenuAction(2, "Remove item", "ManageItemMenu"));
-            AddItem(new MenuAction(3, "Back to Main Menu", "ManageItemMenu"));
+            AddItem(new MenuAction(2, "Find item by id", "ManageItemMenu"));
+            AddItem(new MenuAction(3, "Remove item by id", "ManageItemMenu"));
+            AddItem(new MenuAction(4, "Update item", "ManageItemMenu"));
+            AddItem(new MenuAction(5, "Back to Main Menu", "ManageItemMenu"));
+
+
+
+            // Update item menu
+            AddItem(new MenuAction(1, "Update name", "UpdateItemMenu"));
+            AddItem(new MenuAction(2, "Update quantity", "UpdateItemMenu"));
+            AddItem(new MenuAction(3, "Go back", "UpdateItemMenu"));
 
             // Find item menu
             AddItem(new MenuAction(1, "Find item by id", "FindItemMenu"));
             AddItem(new MenuAction(2, "Find item by name", "FindItemMenu"));
             AddItem(new MenuAction(3, "Go back", "FindItemMenu"));
-
             // Remove item menu
             AddItem(new MenuAction(1, "Remove item by id", "RemoveItemMenu"));
             AddItem(new MenuAction(2, "Remove item by name", "RemoveItemMenu"));

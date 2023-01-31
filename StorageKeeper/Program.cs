@@ -1,4 +1,5 @@
 ﻿using StorageKeeper.App.Concrete;
+using StorageKeeper.App.Managers;
 using StorageKeeper.Domain.Entities;
 using System;
 
@@ -26,16 +27,20 @@ namespace StorageKeeper
 
 
             Console.WriteLine("Welcome to Storage Keeper!");
-            MenuActionService menuActionService = new MenuActionService();
+            MenuActionService actionService = new MenuActionService();
+            ItemService itemService = new ItemService();
+            ItemManager itemManager = new ItemManager(actionService, itemService);
+            CatalogueService catalogueService = new CatalogueService();
+            CatalogueManager catalogueManager = new CatalogueManager(actionService, catalogueService);
             bool isApplicationRunning = true;
 
             while (isApplicationRunning)
             {
                 Console.WriteLine();
                 Console.WriteLine("Please chose an option:");
-                List<MenuAction> menuActions = menuActionService.GetMenuActionsByName("MainMenu");
+                List<MenuAction> menuActions = actionService.GetMenuActionsByName("MainMenu");
 
-                menuActionService.DisplayMenuActions(menuActions);
+                actionService.DisplayMenuActions(menuActions);
 
                 var option = Console.ReadKey();
 
@@ -43,15 +48,15 @@ namespace StorageKeeper
                 {
                     // Create a new catalogue
                     case '1':
-                        DisplayCreateMenuActions(menuActionService);
+                        catalogueManager.AddNewCatalogue();
                         break;
                     // Show catalogues
                     case '2':
-                        DisplayShowCatalogueMenuActions(menuActionService);
+                        catalogueManager.ShowCatalogueMenu();
                         break;
-                    // Find item
+                    // Manage items
                     case '3':
-                        DisplayFindItemMenuActions(menuActionService);
+                        itemManager.ShowItemMenu();
                         break;
                     // Exit
                     case '4':
