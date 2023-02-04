@@ -5,9 +5,7 @@ namespace StorageKeeper.Domain.Entities
     public class Item : BaseEntity
     {
         #region Properties
-        public int Id { get; set; }
 
-        public string Name { get; set; }
 
         public int Quantity { get; set; }
 

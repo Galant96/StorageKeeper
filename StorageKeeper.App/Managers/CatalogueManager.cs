@@ -10,21 +10,25 @@ using System.Threading.Tasks;
 
 namespace StorageKeeper.App.Managers
 {
-    public  class CatalogueManager
+    public class CatalogueManager
     {
         private readonly MenuActionService _actionService;
         private IService<Catalogue> _catalogueService;
-
+     
         #region Constructors
         public CatalogueManager(MenuActionService actionService, IService<Catalogue> catalogueService)
         {
             _actionService = actionService;
             _catalogueService = catalogueService;
+
+            Catalogue catalogueTestA = new Catalogue(_catalogueService.GetLastId()+1, "TestA");
+            _catalogueService.AddItem(catalogueTestA);
+            Catalogue catalogueTestB = new Catalogue(_catalogueService.GetLastId()+1, "TestB");
+            _catalogueService.AddItem(catalogueTestB);
         }
         #endregion
 
         #region Methods
-
         public void ShowCatalogueMenu()
         {
             // Get the menu
@@ -33,10 +37,7 @@ namespace StorageKeeper.App.Managers
             bool isActive = true;
 
             // TEST
-            Catalogue catalogueTestA = new Catalogue(1, "TestA");
-            Catalogue catalogueTestB = new Catalogue(2, "TestB");
-            _catalogueService.AddItem(catalogueTestA);
-            _catalogueService.AddItem(catalogueTestB);
+           
 
             while (isActive)
             {
@@ -124,15 +125,26 @@ namespace StorageKeeper.App.Managers
 
         public void DisplayCatalogueItems()
         {
-           Console.WriteLine("Provide catalogue name:");
-           int catalogueId = InputHelper.GetIdFromUser();
-           Catalogue catalogue = _catalogueService.GetItemById(catalogueId);
-       
+            Console.WriteLine("Provide catalogue id:");
+            int catalogueId = InputHelper.GetIdFromUser();
+            Catalogue catalogue = _catalogueService.GetItemById(catalogueId);
+            Console.WriteLine(catalogue.CatalogueItems.Count);
+            List<Item> itemList = GetCatalogueItems(catalogue);
 
-           for (int i = 0; i < catalogue.CatalogueItems.Count; i++)
-           {
-               Console.WriteLine($"{i+1}. Item ID:{catalogue.CatalogueItems[i].Id} Item Name: {catalogue.CatalogueItems[i].Name}");
-           }
+            Console.WriteLine(catalogue.Name);
+
+            foreach (Item item in itemList)
+            {
+                Console.WriteLine($"{item.Id} - {item.Name} - {item.Quantity}");
+            }
+        }
+
+        private List<Item> GetCatalogueItems(Catalogue catalogue)
+        {
+            Console.WriteLine(catalogue.Id);
+            Console.WriteLine(catalogue.Name);
+            Console.WriteLine(catalogue.CatalogueItems.Count);
+            return catalogue.CatalogueItems;
         }
         #endregion
     }

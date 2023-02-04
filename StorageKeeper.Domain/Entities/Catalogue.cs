@@ -10,14 +10,12 @@ namespace StorageKeeper.Domain.Entities
     public class Catalogue:BaseEntity
     {
         #region Properties
-        public int Id { get; set; }
-        public string Name { get; set; }
 
         public List<Item> CatalogueItems { get; set; }
         #endregion
 
         #region Constructor
-        public Catalogue()
+        public Catalogue(string name)
         {
             CatalogueItems = new List<Item>();
             AddItemTest();
@@ -28,6 +26,7 @@ namespace StorageKeeper.Domain.Entities
             Id = id;
             Name = name;
             CatalogueItems = new List<Item>();
+            AddItemTest();
         }
         #endregion
 
@@ -35,7 +34,7 @@ namespace StorageKeeper.Domain.Entities
         private void AddItemTest()
         {
             Item itemA = new Item(1, "ItemA", 2);
-            Item itemB = new Item(1, "ItemB", 3);
+            Item itemB = new Item(2, "ItemB", 3);
             CatalogueItems.Add(itemA);
             CatalogueItems.Add(itemB);
         }
