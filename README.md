@@ -38,6 +38,7 @@ Storage Keeper is a simple console application created with .Net technology whic
 - [x] Catalogue Creation // This is pending
 - [x] Adding Items// This is done
 - [ ] Saving Storage Data
+- [ ] Update UI
 
 ## Getting Started
 
