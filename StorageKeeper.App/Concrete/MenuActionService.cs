@@ -39,14 +39,13 @@ namespace StorageKeeper.App.Concrete
         private void Initialize()
         {
             // Main Menu
-            AddItem(new MenuAction(1, "Create storage catalogue", "MainMenu"));
-            AddItem(new MenuAction(2, "Show catalogue", "MainMenu"));
-            AddItem(new MenuAction(3, "Manage items", "MainMenu"));
-            AddItem(new MenuAction(4, "Exit", "MainMenu"));
+            AddItem(new MenuAction(1, "Display catalogue menu", "MainMenu"));
+            AddItem(new MenuAction(2, "Manage items", "MainMenu"));
+            AddItem(new MenuAction(3, "Exit", "MainMenu"));
 
             // Create a storage catalogue menu
             AddItem(new MenuAction(1, "Add catalogue", "CatalogueMenu"));
-            AddItem(new MenuAction(2, "Display catalogue", "CatalogueMenu"));
+            AddItem(new MenuAction(2, "Display catalogues", "CatalogueMenu"));
             AddItem(new MenuAction(3, "Remove catalogue", "CatalogueMenu"));
             AddItem(new MenuAction(4, "Back to Main Menu", "CatalogueMenu"));
 
@@ -63,7 +62,6 @@ namespace StorageKeeper.App.Concrete
             AddItem(new MenuAction(1, "Update name", "UpdateItemMenu"));
             AddItem(new MenuAction(2, "Update quantity", "UpdateItemMenu"));
             AddItem(new MenuAction(3, "Go back", "UpdateItemMenu"));
-
             // Find item menu
             AddItem(new MenuAction(1, "Find item by id", "FindItemMenu"));
             AddItem(new MenuAction(2, "Find item by name", "FindItemMenu"));

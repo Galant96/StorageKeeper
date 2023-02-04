@@ -9,29 +9,14 @@ namespace StorageKeeper
     {
         static void Main(string[] args)
         {
-            // 1. Say hello to user
-            // 2. Print menu
-                // 2.1 Create a storage catalogue
-                    // Provide name
-                        // Save
-                // 2.2 Show catalogue
-                // 2.3 Add item
-                    // Create id
-                    // Provide name
-                    // Provide quantity
-                // 2.4 Remove item
-                    // Provide name or id
-                        // Provide quantity
-                            // Remove
-                // 2.5 Exit App
-
-
+       
             Console.WriteLine("Welcome to Storage Keeper!");
             MenuActionService actionService = new MenuActionService();
-            ItemService itemService = new ItemService();
-            ItemManager itemManager = new ItemManager(actionService, itemService);
             CatalogueService catalogueService = new CatalogueService();
             CatalogueManager catalogueManager = new CatalogueManager(actionService, catalogueService);
+            ItemService itemService = new ItemService();
+            ItemManager itemManager = new ItemManager(actionService, itemService, catalogueManager);
+          
             bool isApplicationRunning = true;
 
             while (isApplicationRunning)
@@ -46,20 +31,17 @@ namespace StorageKeeper
 
                 switch(option.KeyChar)
                 {
-                    // Create a new catalogue
-                    case '1':
-                        catalogueManager.AddNewCatalogue();
-                        break;
+               
                     // Show catalogues
-                    case '2':
+                    case '1':
                         catalogueManager.ShowCatalogueMenu();
                         break;
                     // Manage items
-                    case '3':
+                    case '2':
                         itemManager.ShowItemMenu();
                         break;
                     // Exit
-                    case '4':
+                    case '3':
                         Console.WriteLine("\nExit...");
                         isApplicationRunning = false;
                         break;

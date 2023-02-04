@@ -2,11 +2,6 @@
 using StorageKeeper.Domain.Entities;
 using StorageKeeper.Domain.Interfaces;
 using StorageKeeper.InputHelpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StorageKeeper.App.Managers
 {
@@ -69,48 +64,12 @@ namespace StorageKeeper.App.Managers
                         isActive = false;
                         break;
                     default:
+                        Console.WriteLine(" - Invalid input");
                         break;
                 }
             }
         }
 
-        public int AddNewCatalogue()
-        {
-            Console.WriteLine();
-            Console.WriteLine("Add a new catalogue.");
-            Console.WriteLine("Provide a name for the catalogue:");
-            var name = Console.ReadLine();
-            int lastId = _catalogueService.GetLastId();
-            Catalogue catalogue = new Catalogue(lastId + 1, name);
-            _catalogueService.AddItem(catalogue);
-
-            return catalogue.Id;
-        }
-
-        public Catalogue GetCatalogueById(int id)
-        {
-            Catalogue catalogue = _catalogueService.GetItemById(id);
-            return catalogue;
-        }
-
-        public Catalogue GetCatalogueByName(string name)
-        {
-            Catalogue catalogue = _catalogueService.GetItemByName(name);
-            return catalogue;
-        }
-
-        public void RemoveCatalogueById(int id)
-        {
-            Catalogue catalogue = _catalogueService.GetItemById(id);
-            Console.WriteLine($"{catalogue.Name} has been removed");
-            _catalogueService.RemoveItem(catalogue);
-        }
-
-        public void RemoveCatalogueByName(string name)
-        {
-            Catalogue catalogue = _catalogueService.GetItemByName(name);
-            _catalogueService.RemoveItem(catalogue);
-        }
 
         public void DisplayCatalogueList()
         {
@@ -125,7 +84,6 @@ namespace StorageKeeper.App.Managers
 
         public void DisplayCatalogueItems()
         {
-            Console.WriteLine("Provide catalogue id:");
             int catalogueId = InputHelper.GetIdFromUser();
             Catalogue catalogue = _catalogueService.GetItemById(catalogueId);
             Console.WriteLine(catalogue.CatalogueItems.Count);
@@ -139,6 +97,52 @@ namespace StorageKeeper.App.Managers
             }
         }
 
+        public void AddItemToCatalogue(Item newItem)
+        {
+            Catalogue catalogue = GetCatalogueById(newItem.CatalogueId);
+            catalogue.CatalogueItems.Add(newItem);
+        }
+
+        private int AddNewCatalogue()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Add a new catalogue.");
+            Console.WriteLine("Provide a name for the catalogue:");
+            var name = Console.ReadLine();
+            int lastId = _catalogueService.GetLastId();
+            Catalogue catalogue = new Catalogue(lastId + 1, name);
+            _catalogueService.AddItem(catalogue);
+
+            return catalogue.Id;
+        }
+
+        private Catalogue GetCatalogueById(int id)
+        {
+            Catalogue catalogue = _catalogueService.GetItemById(id);
+            return catalogue;
+        }
+
+        private Catalogue GetCatalogueByName(string name)
+        {
+            Catalogue catalogue = _catalogueService.GetItemByName(name);
+            return catalogue;
+        }
+
+        private void RemoveCatalogueById(int id)
+        {
+            Catalogue catalogue = _catalogueService.GetItemById(id);
+            Console.WriteLine();
+            Console.WriteLine($"{catalogue.Name} has been removed");
+            _catalogueService.RemoveItem(catalogue);
+        }
+
+        private void RemoveCatalogueByName(string name)
+        {
+            Catalogue catalogue = _catalogueService.GetItemByName(name);
+            _catalogueService.RemoveItem(catalogue);
+        }
+
+
         private List<Item> GetCatalogueItems(Catalogue catalogue)
         {
             Console.WriteLine(catalogue.Id);
@@ -147,5 +151,6 @@ namespace StorageKeeper.App.Managers
             return catalogue.CatalogueItems;
         }
         #endregion
+
     }
 }

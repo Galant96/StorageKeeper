@@ -9,12 +9,14 @@ namespace StorageKeeper.App.Managers
     {
         private readonly MenuActionService _actionService;
         private IService<Item> _itemService;
+        private readonly CatalogueManager _catalogueManager;
 
         #region Constructors
-        public ItemManager(MenuActionService actionService, IService<Item> itemService)
+        public ItemManager(MenuActionService actionService, IService<Item> itemService, CatalogueManager catalogueManager)
         {
             _actionService = actionService;
             _itemService = itemService; // Get access to ItemService/BaseService methods
+            _catalogueManager = catalogueManager;
         }
         #endregion
 
@@ -37,9 +39,11 @@ namespace StorageKeeper.App.Managers
 
                 switch (operationId)
                 {
+                    // Add new item
                     case 1:
                         int itemId = AddNewItem();
                         break;
+                    // Find item by id
                     case 2:
                         {
                             int id = InputHelper.GetIdFromUser();
@@ -56,15 +60,18 @@ namespace StorageKeeper.App.Managers
                             }
                             break;
                         }
+                    // Remove item by id
                     case 3:
                         {
                             int id = InputHelper.GetIdFromUser();
                             RemoveItemById(id);
                             break;
                         }
+                    // Update item by id
                     case 4:
                         int updatedItemId = UpdateItem();
                         break;
+                    // exit
                     case 5:
                         isActive = false;
                         break;
@@ -73,30 +80,6 @@ namespace StorageKeeper.App.Managers
                 }
             }
             
-        }
-
-        public int AddNewItem()
-        {
-            Console.WriteLine();
-            Console.WriteLine("Add a new item.");
-            Console.WriteLine("Provide a name for the item:");
-            var name = Console.ReadLine();
-            Console.WriteLine("Provide a quantity for the item:");
-            var quantity = Console.ReadLine();
-            int intQunatity;
-            Int32.TryParse(quantity.ToString(), out intQunatity);
-            int lastId = _itemService.GetLastId();
-            Item item = new Item(lastId + 1, name, intQunatity);
-            _itemService.AddItem(item);
-            return item.Id;
-        }
-
-        public void RemoveItemById(int id)
-        {
-            Console.WriteLine();
-            Item item = _itemService.GetItemById(id);
-            Console.WriteLine($"{item.Name} has been removed");
-            _itemService.RemoveItem(item);
         }
 
         public Item GetItemById(int id)
@@ -154,7 +137,35 @@ namespace StorageKeeper.App.Managers
             return updatedItemId;
         }
 
-     
+        private int AddNewItem()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Add a new item.");
+            Console.WriteLine("Provide a name for the item:");
+            var name = Console.ReadLine();
+            int quantity = InputHelper.GetQuantityFromUser();
+            int lastId = _itemService.GetLastId();
+            Console.WriteLine();
+
+            Console.WriteLine("Catalogues List:");
+
+            _catalogueManager.DisplayCatalogueList();
+            Console.WriteLine("Assign item to the catalogue. Please, chose your option: ");
+            int catalogueId = InputHelper.GetIdFromUser();
+
+            Item item = new Item(lastId + 1, name, quantity, catalogueId);
+            _itemService.AddItem(item);
+            _catalogueManager.AddItemToCatalogue(item);
+            return item.Id;
+        }
+        private void RemoveItemById(int id)
+        {
+            Console.WriteLine();
+            Item item = _itemService.GetItemById(id);
+            Console.WriteLine($"{item.Name} has been removed");
+            _itemService.RemoveItem(item);
+        }
+
         #endregion
     }
 }

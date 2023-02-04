@@ -6,7 +6,6 @@ namespace StorageKeeper.Domain.Entities
     {
         #region Properties
 
-
         public int Quantity { get; set; }
 
         public int CatalogueId { get; set; }

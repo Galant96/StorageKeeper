@@ -5,6 +5,6 @@ namespace StorageKeeper.App.Concrete
 {
     public class CatalogueService : BaseService<Catalogue>
     {
-       
+
     }
 }
